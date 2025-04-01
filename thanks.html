@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شكراً لتواصلك</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Tree and Squirrel House Animation -->
+    <div class="tree-container">
+        <div class="tree-trunk">
+            <div class="trunk-detail"></div>
+            <div class="trunk-detail"></div>
+            <div class="trunk-detail"></div>
+            <div class="trunk-detail"></div>
+        </div>
+        
+        <div class="tree-branches">
+            <div class="branch branch-1"></div>
+            <div class="branch branch-2"></div>
+            <div class="branch branch-3"></div>
+            
+            <!-- Generate leaves -->
+            <div class="tree-leaf parallax-element" data-depth="0.2"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.3"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.1"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.4"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.2"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.3"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.1"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.2"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.4"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.3"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.2"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.1"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.3"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.2"></div>
+            <div class="tree-leaf parallax-element" data-depth="0.4"></div>
+        </div>
+        
+        <!-- Happy squirrel animation -->
+        <div class="squirrel" style="bottom: 250px; left: 50%; animation: float 3s ease-in-out infinite;">
+            <div class="squirrel-tail"></div>
+        </div>
+    </div>
+
+    <div class="thanks-page">
+        <h1 class="glitch-text" data-text="شكراً لتواصلك!">شكراً لتواصلك!</h1>
+        <p class="distortion-text">تم استلام رسالتك بنجاح، وسنرد عليك في أقرب وقت ممكن.</p>
+        <a href="index.html" class="back-btn">العودة للصفحة الرئيسية</a>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script>
+        // Simple animation for the thank you page
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof gsap !== 'undefined') {
+                // Animate elements
+                gsap.from('.thanks-page h1', {
+                    opacity: 0,
+                    y: -50,
+                    duration: 1,
+                    ease: 'power3.out'
+                });
+                
+                gsap.from('.thanks-page p', {
+                    opacity: 0,
+                    y: 20,
+                    duration: 1,
+                    delay: 0.5,
+                    ease: 'power2.out'
+                });
+                
+                gsap.from('.back-btn', {
+                    opacity: 0,
+                    y: 20,
+                    scale: 0.8,
+                    duration: 1,
+                    delay: 1,
+                    ease: 'back.out(1.7)'
+                });
+                
+                // Create falling elements (leaves, acorns, etc.)
+                const container = document.createElement('div');
+                container.className = 'falling-elements';
+                document.body.appendChild(container);
+                
+                const elements = ['🍂', '🍃', '🌰', '🍄', '🐿️', '🪶', '🌱', '🌿'];
+                const colors = ['#8B4513', '#556B2F', '#A0522D', '#CD853F', '#6B8E23', '#4b3621', '#7f784b', '#6f4e37'];
+                
+                // Create 30 falling elements
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        const element = document.createElement('div');
+                        const symbol = elements[Math.floor(Math.random() * elements.length)];
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        
+                        element.className = 'falling-element';
+                        element.textContent = symbol;
+                        element.style.position = 'absolute';
+                        element.style.color = color;
+                        element.style.top = '-50px';
+                        element.style.left = `${Math.random() * 100}%`;
+                        element.style.fontSize = `${Math.random() * 20 + 10}px`;
+                        element.style.opacity = `${Math.random() * 0.8 + 0.2}`;
+                        element.style.textShadow = '1px 1px 3px rgba(0, 0, 0, 0.5)';
+                        element.style.zIndex = '1000';
+                        element.style.animation = `fall ${Math.random() * 15 + 10}s linear infinite ${Math.random() * 10}s`;
+                        element.style.transform = `rotate(${Math.random() * 360}deg)`;
+                        
+                        container.appendChild(element);
+                    }, i * 500); // Add delay for each element
+                }
+                
+                // Add hover effect to the squirrel
+                const squirrel = document.querySelector('.squirrel');
+                if (squirrel) {
+                    squirrel.addEventListener('mouseenter', () => {
+                        gsap.to(squirrel, {
+                            rotation: 720,
+                            duration: 1,
+                            ease: 'power2.out'
+                        });
+                    });
+                    
+                    squirrel.addEventListener('mouseleave', () => {
+                        gsap.to(squirrel, {
+                            rotation: 0,
+                            duration: 1,
+                            ease: 'elastic.out(1, 0.3)'
+                        });
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
